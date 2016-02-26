@@ -64,7 +64,7 @@ nodesOn() {
 vagrantUp() {
   cd ${WORKSPACE}/RackHD/example
   cp -rf ${WORKSPACE}/build-config/vagrant/* .
-  WORKSPACE=${WORKSPACE} REPO_NAME=${REPO_NAME} vagrant up --provision
+  CONFIG_DIR=$1 WORKSPACE=${WORKSPACE} REPO_NAME=${REPO_NAME} vagrant up --provision
 }
 
 vagrantDestroy() {
@@ -110,7 +110,7 @@ vagrantDestroy
 nodesOff
 
 # Power on vagrant box and nodes 
-vagrantUp
+vagrantUp "RackHD/packer/ansible/roles/monorail/files/auth_config"
 waitForAPI
 nodesOn
 
